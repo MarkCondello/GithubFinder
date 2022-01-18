@@ -1,8 +1,12 @@
+import UserResults from '../users/UserResults'
 function Home() {
   return (
-    <div>
-      <h1 className="text-6l">Welcome</h1>
-    </div>
+    <>
+    {/* Search will go here. */}
+      <UserResults />
+      {/* {process.env.REACT_APP_GITHUB_URL}
+      {process.env.REACT_APP_GITHUB_TOKEN} */}
+    </>
   )
 }
 
