@@ -23,14 +23,14 @@ export const GithubProvider = ({children}) => {
     // }
     )
     const data = await response.json()
-    console.log({data})
+    // console.log({data})
     dispatch({ // dispatches to the githubReducer
       type: 'GET_USERS',
       payload: data
     })
   }
   const searchUsers = async (user) => {
-    console.log('reached searchUsers', {user}, user)
+    // console.log('reached searchUsers', {user}, user)
     setLoading()
     const params = new URLSearchParams({
       q: user
