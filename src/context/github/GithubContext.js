@@ -13,13 +13,15 @@ export const GithubProvider = ({children}) => {
   const [state, dispatch] = useReducer(githubReducer, initialState)
   const setLoading = () => dispatch({type: 'SET_LOADING'})
   // fetchUsers is for testing purposes 
-  const fetchUsers = async (user) => {
+  const fetchUsers = async () => {
     setLoading()
-    const response = await fetch(`${GITHUB_URL}users`, {
-      headers: {
-        Authorization: `token ${GITHUB_TOKEN}`
-      }
-    })
+    const response = await fetch(`${GITHUB_URL}users`, 
+    // {
+    //   headers: {
+    //     Authorization: `token ${GITHUB_TOKEN}`
+    //   }
+    // }
+    )
     const data = await response.json()
     console.log({data})
     dispatch({ // dispatches to the githubReducer
@@ -30,24 +32,29 @@ export const GithubProvider = ({children}) => {
   const searchUsers = async (user) => {
     console.log('reached searchUsers', {user}, user)
     setLoading()
-    const response = await fetch(`${GITHUB_URL}search/users?q=${user}`, {
-      headers: {
-        Authorization: `token ${GITHUB_TOKEN}`
-      }
+    const params = new URLSearchParams({
+      q: user
     })
-    const data = await response.json()
-    console.log({data})
+    const response = await fetch(`${GITHUB_URL}search/users?${params}`, 
+    // {
+    //   headers: {
+    //     Authorization: `token ${GITHUB_TOKEN}`
+    //   }
+    // }
+    )
+    const {items} = await response.json() // destructure items from data
     dispatch({ // dispatches to the githubReducer
       type: 'SET_USERS',
-      payload: data.items
+      payload: items
     })
   }
+  const clearUsers = () => dispatch({ type: 'CLEAR_USERS' })
   return <GithubContext.Provider value={{
     users: state.users,
     loading: state.loading,
     searchUsers,
     fetchUsers,
-    dispatch
+    clearUsers,
   }}>
     {children}
   </GithubContext.Provider>

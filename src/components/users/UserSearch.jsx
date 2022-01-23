@@ -2,16 +2,19 @@ import { useState, useContext } from 'react';
 import GithubContext from '../../context/github/GithubContext';
 
 function UserSearch() {
-  const { users, searchUsers, dispatch } = useContext(GithubContext)
   const [text, setText] = useState('')
-  const handleChange = (ev) => {
+  const { users, searchUsers, clearUsers } = useContext(GithubContext)
+  const handleChange = (ev) => {  
     setText(ev.target.value)
   }
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    // console.log('reachedHandleSubmit', text)
-    searchUsers(text)
-    setText('')
+    if(text === ''){
+      alert('Please enter something...')
+    } else {
+      searchUsers(text)
+      setText('')
+    }
   }
 
   return (<div className='grid grid-cols-1 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 mb-8 gap-8'>
@@ -39,7 +42,7 @@ function UserSearch() {
   {users.length > 0 && (
     <div>
       <button
-        onClick={() => dispatch({ type: 'CLEAR_USERS' })}
+        onClick={clearUsers}
         className='btn btn-ghost btn-lg'
       >
         Clear
