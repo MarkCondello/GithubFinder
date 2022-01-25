@@ -14,7 +14,6 @@ function UserSearch() {
     ev.preventDefault();
     if(text === ''){
       setAlert('Please enter something...', 'error')
-      //alert('Please enter something...')
     } else {
       searchUsers(text)
       setText('')

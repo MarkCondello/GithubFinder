@@ -2,3 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+.custom-card-image .card.image-full:before {
+  border-radius: 2px;
+  opacity: .5;
+}
+
