@@ -18,32 +18,16 @@ export const searchUsers = async (user) => {
     })
 }
 
-export const getUser = async (user) => {
-  const response = await fetch(`${GITHUB_URL}users/${user}`,
-  {
-    headers: {
-      Authorization: `token ${GITHUB_TOKEN}`
-    }
-  }
+export const getUserAndRepos = async (login) => {
+  const [user, repos] = await Promise.all(
+    [
+      axios.get(`${GITHUB_URL}users/${login}`),
+      axios.get(`${GITHUB_URL}users/${login}/repos`)
+    ]
   )
-  if (response.state === 404) {
-    window.location = '/notfound'
-  } else {
-    return await response.json()
+  // console.log({user, repos})
+  return {
+    user: user.data,
+    repos: repos.data
   }
-}
-
-export const getUserRepos = async (user) => {
-  const params = new URLSearchParams({
-    sort: 'created',
-    per_page: 10
-  })
-  const response = await fetch(`${GITHUB_URL}users/${user}/repos?${params}`, 
-  {
-    headers: {
-      Authorization: `token ${GITHUB_TOKEN}`
-    }
-  }
-  )
-  return await response.json()
 }

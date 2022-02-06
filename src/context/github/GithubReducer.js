@@ -2,6 +2,13 @@ const githubReducer = (state, action) => {
   // console.log('reached githubReduced', {action})
   switch(action.type) {
     // get initial users (testing purposes)
+    case 'GET_USER_AND_REPOS':
+      return {
+        ...state,
+        user: action.payload.user,
+        repos: action.payload.repos,
+        loading: false
+      }
     case 'GET_USERS':
       return {
         ...state,
