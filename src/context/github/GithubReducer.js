@@ -8,7 +8,6 @@ const githubReducer = (state, action) => {
         users: action.payload,
         loading: false,
     }
-    // I added this here
     case 'SET_USERS':
       return {
         ...state,
