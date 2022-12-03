@@ -5,8 +5,6 @@ const GithubContext = createContext(); // needs to be exported so its value item
 const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
 const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 
-console.log({GITHUB_URL, GITHUB_TOKEN})
-
 export const GithubProvider = ({children}) => {
   const initialState = {
     users: [],
@@ -20,11 +18,8 @@ export const GithubProvider = ({children}) => {
   const fetchUsers = async () => {
     setLoading()
     const response = await fetch(`${GITHUB_URL}users`,
-    {
-      headers: { Authorization: `token ${GITHUB_TOKEN}`}
-    })
+    {headers: { Authorization: `token ${GITHUB_TOKEN}`}})
     const data = await response.json()
-    // console.log({data})
     dispatch({ // dispatches to the githubReducer
       type: 'GET_USERS',
       payload: data
@@ -35,9 +30,7 @@ export const GithubProvider = ({children}) => {
     setLoading()
     const params = new URLSearchParams({q: user})
     const response = await fetch(`${GITHUB_URL}search/users?${params}`, 
-    {
-      headers: {Authorization: `token ${GITHUB_TOKEN}`}
-    })
+    {headers: {Authorization: `token ${GITHUB_TOKEN}`}})
     const {items} = await response.json() // destructure items from data
     dispatch({ // dispatches to the githubReducer
       type: 'SET_USERS',
@@ -46,12 +39,9 @@ export const GithubProvider = ({children}) => {
   }
   const getUser = async (user) => {
     setLoading()
-    const params = new URLSearchParams({q: user})
+    // const params = new URLSearchParams({q: user})
     const response = await fetch(`${GITHUB_URL}users/${user}`,
-    {
-      headers: { Authorization: `token ${GITHUB_TOKEN}`}
-    }
-    )
+    {headers: { Authorization: `token ${GITHUB_TOKEN}`}})
     if (response.state === 404) {
       window.location = '/notfound'
     } else {
@@ -65,15 +55,12 @@ export const GithubProvider = ({children}) => {
   const getUserRepos = async (user) => {
     // console.log('reached searchUsers', {user}, user)
     setLoading()
-
     const params = new URLSearchParams({
       sort: 'created',
       per_page: 10
     })
     const response = await fetch(`${GITHUB_URL}users/${user}/repos?${params}`,
-    {
-      headers: {Authorization: `token ${GITHUB_TOKEN}`}
-    })
+    {headers: {Authorization: `token ${GITHUB_TOKEN}`}})
     const data = await response.json() // destructure items from data
     dispatch({ // dispatches to the githubReducer
       type: 'GET_REPOS',
