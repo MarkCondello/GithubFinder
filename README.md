@@ -1,3 +1,10 @@
+# Project Keys
+A Github Auth key is set up which has full access to user and repo details for all user data.
+Adding this token prevents usage limits however it is not required and can be removed as the github api users endpoint is publicly available.
+
+# Setup
+Node 14^
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

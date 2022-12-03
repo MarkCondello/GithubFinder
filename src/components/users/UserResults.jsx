@@ -10,7 +10,7 @@ function UserResults() {
     fetchUsers()
   }, [])
   // https://reactjs.org/docs/hooks-effect.html
-  if(!loading) {
+  if(!loading && users.length > 0) {
     return (
       <div className='grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2'>
       {users.map(user => (
