@@ -1,6 +1,7 @@
 # Project Keys
-A Github Auth key is set up which has full access to user and repo details for all user data.
+A Github Auth key is required for set up which has full access to `user` and `repo` details.
 Adding this token prevents usage limits however it is not required and can be removed as the github api users endpoint is publicly available.
+A new key needs to be generated to run this project but should not be committed as GitHib deletes it due to security precautions.
 
 # Setup
 Node 14^
